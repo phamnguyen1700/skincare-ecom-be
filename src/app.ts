@@ -10,8 +10,24 @@ import orderRoutes from "./routes/order.routes";
 
 const app = express();
 
+const allowedOrigins: Set<string> = new Set([
+  "http://localhost:3000",
+  "https://example.com",
+]);
+
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) => {
+      if (!origin || allowedOrigins.has(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(helmet());
 app.use(cookieParser());
 
