@@ -12,7 +12,7 @@ const app = express();
 
 const allowedOrigins: Set<string> = new Set([
   "http://localhost:3000",
-  "https://example.com",
+  "app-ecommerce-nine-sooty.vercel.app",
 ]);
 
 app.use(express.json());
